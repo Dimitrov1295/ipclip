@@ -24,6 +24,7 @@ public final class KeypressListener implements NativeKeyListener {
     private boolean isPressedAlt;
     private boolean isPressedI;
     private boolean isPressedP;
+    private boolean isPressedOther;
 
     private KeypressListener() {
     }
@@ -35,7 +36,7 @@ public final class KeypressListener implements NativeKeyListener {
     @Override
     public void nativeKeyPressed(NativeKeyEvent e) {
         this.setKeyPressed(e.getKeyCode(), true);
-        if (isPressedAlt && isPressedI && isPressedP) {
+        if (isPressedAlt && isPressedI && isPressedP && !isPressedOther) {
             this.setClipboardContentsToCurrentPublicIp();
         }
     }
@@ -52,6 +53,7 @@ public final class KeypressListener implements NativeKeyListener {
                 this.isPressedP = isPressed;
                 break;
             default:
+                this.isPressedOther = isPressed;
                 break;
         }
     }
